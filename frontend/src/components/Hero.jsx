@@ -12,7 +12,7 @@ export function Hero() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="font-sans uppercase tracking-[0.2em] text-xs font-bold text-[#5A735A] block mb-6">
-            Introducing FindBack By Reverto
+            Introducing Reverto
           </span>
           <h1 className="font-serif text-5xl md:text-7xl text-[#111111] tracking-tight leading-[1.1] mb-8 max-w-4xl mx-auto font-medium">
             Bringing what’s lost back to <span className="italic text-[#5A735A] font-light">where it belongs</span>.

@@ -22,7 +22,7 @@ export function HowItWorks() {
 
   return (
     <section
-      id="how-it-works"
+      id="howitworks"
       className="py-24 bg-[#FFFFFF] border-y border-black/[0.04]"
     >
       <div className="max-w-7xl mx-auto px-6">

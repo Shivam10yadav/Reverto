@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Navbar() {
   return (
@@ -15,14 +17,15 @@ export function Navbar() {
             <div className="w-8 h-8 rounded-full bg-[#111111] flex items-center justify-center font-bold text-white text-sm">
               R
             </div>
-            <span className="font-serif text-lg tracking-wide text-[#111111] font-semibold">
-              reverto
+            <span className=" italic font-serif text-xl tracking-wide text-[#111111] font-semibold ">
+              Reverto
             </span>
           </div>
 
           {/* Navigation Link Interactivity */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
             <a href="#hero" className="hover:text-black transition-colors duration-200">Hero</a>
+            <Link to="/about" className="hover:text-black transition-colors duration-200">About</Link>
             <a href="#features" className="hover:text-black transition-colors duration-200">Features</a>
             <a href="#howitworks" className="hover:text-black transition-colors duration-200">How It Works</a>
             <a href="#faq" className="hover:text-black transition-colors duration-200">FAQ</a>
@@ -31,11 +34,18 @@ export function Navbar() {
           </div>
 
           {/* Call To Action Block */}
-          <div>
-            <button className="bg-[#111111] text-white hover:bg-black px-5 py-2 rounded-full text-xs font-medium transition-all duration-300 transform hover:scale-[1.02]">
-              Launch App
-            </button>
-          </div>
+         <div>
+<Link
+  to="/signup"
+  className="group inline-flex items-center gap-2 rounded-full bg-[#111111] px-5 py-2 text-xs font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+>
+  Launch App
+  <ArrowRight
+    size={14}
+    className="transition-transform duration-300 group-hover:translate-x-1"
+  />
+</Link>
+</div>
         </div>
       </motion.nav>
     </div>
