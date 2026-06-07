@@ -1,11 +1,12 @@
 import LostItem from "../models/lostItem.model.js";
 
-
-//create lost item
-
+// create lost item
 export const createLostItem = async (req, res) => {
   try {
-    const { title, category, description, location, reward, images } = req.body;
+    const { title, category, description, location, reward } = req.body;
+
+    // req.files comes from upload.array("images") middleware
+    const images = req.files?.map((file) => file.path) || [];
 
     const item = await LostItem.create({
       owner: req.user._id,
@@ -22,21 +23,6 @@ export const createLostItem = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-
-//get all item 
-export const getAllLostItems = async (req, res) => {
-  try {
-    const items = await LostItem.find()
-      .populate("owner", "name email")
-      .sort({ createdAt: -1 });
-
-    res.status(200).json(items);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
 
 // get lost item by id
 export const getLostItemById = async (req, res) => {
@@ -56,8 +42,7 @@ export const getLostItemById = async (req, res) => {
   }
 };
 
-
-//delete item 
+// delete item
 export const deleteLostItem = async (req, res) => {
   try {
     const item = await LostItem.findById(req.params.id);
@@ -73,6 +58,81 @@ export const deleteLostItem = async (req, res) => {
     await item.deleteOne();
 
     res.status(200).json({ message: "Item deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// get all lost items with filters
+export const getLostItems = async (req, res) => {
+  try {
+    const {
+      search,
+      category,
+      location,
+      status,
+      time,
+      page = 1,
+      limit = 10,
+      sort = "newest",
+    } = req.query;
+
+    let query = {};
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    if (category) query.category = category;
+
+    if (location) {
+      query.location = { $regex: location, $options: "i" };
+    }
+
+    if (status) {
+      query.status = status;
+    }
+
+    if (time === "today") {
+      query.createdAt = {
+        $gte: new Date(new Date().setHours(0, 0, 0, 0)),
+      };
+    }
+
+    if (time === "week") {
+      const d = new Date();
+      d.setDate(d.getDate() - 7);
+      query.createdAt = { $gte: d };
+    }
+
+    if (time === "month") {
+      const d = new Date();
+      d.setMonth(d.getMonth() - 1);
+      query.createdAt = { $gte: d };
+    }
+
+    let sortOption = {};
+    if (sort === "newest") sortOption = { createdAt: -1 };
+    if (sort === "oldest") sortOption = { createdAt: 1 };
+
+    const items = await LostItem.find(query)
+      .populate("owner", "name email")
+      .sort(sortOption)
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
+    const total = await LostItem.countDocuments(query);
+
+    res.status(200).json({
+      items,
+      total,
+      page: Number(page),
+      pages: Math.ceil(total / limit),
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

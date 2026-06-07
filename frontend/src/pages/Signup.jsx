@@ -2,26 +2,36 @@ import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../api/axios";
-import { useAuth } from "../context/AuthContext";
-
+import { useAuth } from "../context/authContext";  
 const Signup = () => {
 
     const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
+const navigate = useNavigate();
+const { setUser,checkAuth } = useAuth();
+
 const handleSignup = async (e) => {
   e.preventDefault();
 
-  const { data } = await API.post("/auth/register", {
-    name,
-    email,
-    password,
-  });
+  try {
+    const { data } = await API.post("/auth/register", {
+      name,
+      email,
+      password,
+    });
 
-  setUser(data.user);
-  navigate("/home");
+    await checkAuth();
+navigate("/home");
+  } catch (error) {
+    console.log(error.response?.data?.message);
+  }
 };
+
+const { loading } = useAuth();
+
+
   return (
     <div className="min-h-screen bg-[#FDF0ED] flex items-center justify-center px-6 py-6 font-sans overflow-hidden relative">
       <div className="absolute top-24 left-20 h-48 w-48 rounded-full bg-[#5A735A]/10 blur-3xl"></div>
@@ -102,7 +112,7 @@ const handleSignup = async (e) => {
               <input
                 type="password"
                 placeholder="Create a password"
-                value={email}
+                value={password}
                 onChange={(e)=>setPassword(e.target.value)}
                 className="w-full rounded-2xl border border-black/10 bg-white px-5 py-3 outline-none transition-all duration-300 focus:border-[#5A735A] focus:shadow-[0_0_0_4px_rgba(90,115,90,0.08)]"
               />

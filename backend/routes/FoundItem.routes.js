@@ -1,17 +1,19 @@
 import express from "express";
 import {
   createFoundItem,
-  getAllFoundItems,
   getFoundItemById,
   deleteFoundItem,
+  getFoundItems,
 } from "../controllers/foundItem.controller.js";
 
-import { protect } from "../middlewares/auth.middleware.js";
+import { protect } from "../middleware/auth.middleware.js";
+import upload from "../middleware/upload.middleware.js";
 
 const router = express.Router();
 
-router.post("/", protect, createFoundItem);
-router.get("/", getAllFoundItems);
+// upload.array("images", 4) allows up to 4 images per report
+router.post("/", protect, upload.array("images", 4), createFoundItem);
+router.get("/", getFoundItems);
 router.get("/:id", getFoundItemById);
 router.delete("/:id", protect, deleteFoundItem);
 

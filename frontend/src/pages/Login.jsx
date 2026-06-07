@@ -10,7 +10,7 @@ const Login = () => {
 const [password, setPassword] = useState("");
 
 const navigate = useNavigate();
-const { setUser } = useAuth();
+const { setUser,checkAuth} = useAuth();
 
 
 const handleLogin = async (e) => {
@@ -22,9 +22,8 @@ const handleLogin = async (e) => {
       password,
     });
 
-    setUser(data.user);
-
-    navigate("/home");
+await checkAuth();
+navigate("/home");
   } catch (error) {
     console.log(error.response?.data?.message);
   }

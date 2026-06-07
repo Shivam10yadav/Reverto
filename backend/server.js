@@ -1,21 +1,42 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+
+import authRoutes from "./routes/auth.routes.js";
+import lostItemRoutes from "./routes/lostItem.routes.js";
+import foundItemRoutes from "./routes/foundItem.routes.js";
+import claimRoutes from "./routes/claim.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
 
 dotenv.config();
 
+
+
 const app = express();
 
-// Connect Database
 connectDB();
 
-// Middleware
-app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-// Test 
+app.use(express.json());
+app.use(cookieParser());
+
 app.get("/", (req, res) => {
-  res.send("FindBack API is running...");
+  res.send("Reverto API is running...");
 });
+
+app.use("/api/auth", authRoutes);
+app.use("/api/lost", lostItemRoutes);
+app.use("/api/found", foundItemRoutes);
+app.use("/api/claims", claimRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 const PORT = process.env.PORT || 5000;
 
