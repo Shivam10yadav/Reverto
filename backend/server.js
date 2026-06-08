@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
 import lostItemRoutes from "./routes/lostItem.routes.js";
-import foundItemRoutes from "./routes/FoundItem.routes.js";
+import foundItemRoutes from "./routes/foundItem.routes.js";
 import claimRoutes from "./routes/claim.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 
