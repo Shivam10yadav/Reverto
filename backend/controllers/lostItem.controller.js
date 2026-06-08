@@ -29,7 +29,7 @@ export const getLostItemById = async (req, res) => {
   try {
     const item = await LostItem.findById(req.params.id).populate(
       "owner",
-      "name email"
+      "_id name email"
     );
 
     if (!item) {
@@ -77,8 +77,9 @@ export const getLostItems = async (req, res) => {
       sort = "newest",
     } = req.query;
 
-    let query = {};
-
+    let query = {
+  status: "lost",
+};  
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: "i" } },

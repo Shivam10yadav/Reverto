@@ -21,6 +21,7 @@ import ClaimItem from "./pages/ClaimItem";
 import FoundItemDetail from "./pages/foundItemDetail";
 import NotFound from "./pages/NotFoundPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import VerificationPage from "./pages/VerificationPage";
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -103,6 +104,14 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+  path="/verification/:id"
+  element={
+    <ProtectedRoute>
+      <VerificationPage />
+    </ProtectedRoute>
+  }
+/>
 
         <Route path="*" element={<NotFoundPage/>}/>
 

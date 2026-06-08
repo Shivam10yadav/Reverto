@@ -112,21 +112,25 @@ export const verifyClaim = async (req, res) => {
       claim.score = calculateScore(item, claim);
     }
 
-    if (action === "approve") {
-      if (claim.score < 50 && !req.body.force) {
-        return res.status(400).json({
-          message: "Score too low to auto-approve. Send force: true to approve anyway.",
-          score: claim.score,
-          requiresForce: true,
-        });
-      }
-      claim.status = "approved";
+  if (action === "approve") {
+  claim.status = "approved";
 
-      if (item) {
-        item.status = "claimed";
-        await item.save();
-      }
+  if (item) {
+    item.status = "returned";
+    await item.save();
+  }
+
+  await Claim.updateMany(
+    {
+      itemId: claim.itemId,
+      _id: { $ne: claim._id },
+      status: "pending",
+    },
+    {
+      status: "rejected",
     }
+  );
+}
 
     if (action === "reject") {
       claim.status = "rejected";

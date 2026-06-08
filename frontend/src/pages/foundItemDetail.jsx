@@ -9,12 +9,19 @@ import {
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import API from "../api/axios";
-
+import { useAuth } from "../context/authContext";
 const FoundItemDetail = () => {
   const { id } = useParams();
 
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const {user}=useAuth()
+  
+  const isOwner =
+  user &&
+  item?.finder &&
+  user._id === item.finder._id;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -186,13 +193,18 @@ const FoundItemDetail = () => {
             </div>
 
             {/* CTA */}
-            <Link
-              to={`/claim/${item._id}?type=found`}
-              className="flex items-center justify-center gap-2 w-full rounded-2xl bg-[#5A735A] py-4 text-center text-base font-medium text-white transition-all duration-300 hover:bg-[#495e49] hover:shadow-lg hover:-translate-y-0.5"
-            >
-              <PackageSearch size={18} />
-              This Is Mine — Claim It
-            </Link>
+          {isOwner ? (
+  <div className="block w-full rounded-2xl bg-gray-200 py-4 text-center text-base font-medium text-gray-600 cursor-not-allowed">
+    This is your report
+  </div>
+) : (
+  <Link
+    to={`/claim/${item._id}`}
+    className="block w-full rounded-2xl bg-[#5A735A] py-4 text-center text-base font-medium text-white transition-all duration-300 hover:bg-[#495e49] hover:shadow-lg hover:-translate-y-0.5"
+  >
+    This Is Mine
+  </Link>
+)}
           </div>
         </div>
       </div>

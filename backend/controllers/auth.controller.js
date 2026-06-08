@@ -169,6 +169,7 @@ export const logout = async (req, res) => {
 export const getMe = async (req, res) => {
   res.status(200).json({
     id: req.user._id,
+    _id: req.user._id,     
     name: req.user.name,
     email: req.user.email,
     avatar: req.user.avatar,

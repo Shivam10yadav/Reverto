@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import API from "../api/axios";
 import { useAuth } from "../context/authContext";
 import {
@@ -18,6 +19,9 @@ import {
   XCircle,
   Eye,
   Package,
+  LogOut,
+  ArrowRight,
+  Home,
 } from "lucide-react";
 
 // ─── helpers ────────────────────────────────────────────────────────────────
@@ -61,9 +65,11 @@ const weeklyData = [
 // ─── main ────────────────────────────────────────────────────────────────────
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState("Overview");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dashboard, setDashboard] = useState({
     lostItems: [],
     foundItems: [],
@@ -96,17 +102,32 @@ const Dashboard = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await API.post("/auth/logout");
+      setUser(null);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Accept or reject a claim (owner action)
   const handleClaimAction = async (claimId, action) => {
     try {
       setActionLoading(true);
       setActionMsg("");
-      await API.patch(`/claims/${claimId}`, { status: action });
+
+      await API.patch(`/claims/${claimId}/verify`, {
+        action: action === "accepted" ? "approve" : "reject",
+      });
+
       setActionMsg(
         action === "accepted" ? "✅ Claim accepted!" : "❌ Claim rejected.",
       );
+
       setSelectedClaim(null);
-      fetchDashboard(); // refresh
+      fetchDashboard();
     } catch (err) {
       setActionMsg(err.response?.data?.message || "Something went wrong.");
     } finally {
@@ -148,24 +169,104 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDF0ED] font-sans">
-      {/* Navbar */}
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[#FDF0ED]/80 border-b border-black/5 px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="text-2xl italic font-serif text-[#5A735A]">
-          Reverto
-        </Link>
-        <div className="flex items-center gap-3">
-          <Link
-            to="/report-lost"
-            className="hidden md:flex items-center gap-2 rounded-full bg-[#5A735A] px-5 py-2.5 text-white text-sm font-medium transition-all hover:scale-105"
-          >
-            <Plus size={15} /> Report Item
-          </Link>
-          <div className="h-9 w-9 rounded-full bg-black text-white flex items-center justify-center text-sm font-semibold">
-            {user?.name?.charAt(0).toUpperCase()}
+    <div className="min-h-screen bg-[#FDF0ED] font-sans pt-24">
+      {/* Floating Glassmorphism Navbar */}
+      <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+        <motion.nav
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-5xl rounded-full bg-white/70 backdrop-blur-md border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.04)] px-6 py-3"
+        >
+          <div className="flex justify-between items-center">
+            <Link to="/" className="flex items-center gap-2 cursor-pointer">
+              <div className="w-8 h-8 rounded-full bg-[#111111] flex items-center justify-center font-bold text-white text-sm">
+                R
+              </div>
+              <span className="italic font-serif text-xl tracking-wide text-[#111111] font-semibold">
+                Reverto
+              </span>
+            </Link>
+
+            <div className="flex items-center gap-3">
+              <Link
+                to="/report-lost"
+                className="hidden md:flex items-center gap-2 rounded-full bg-[#5A735A] px-5 py-2 text-xs font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              >
+                <Plus size={14} /> Report Item
+              </Link>
+
+              {user ? (
+                <div
+                  className="relative"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                  onMouseLeave={() => setDropdownOpen(false)}
+                >
+                  <button className="w-9 h-9 rounded-full bg-[#5A735A] text-white font-semibold text-sm flex items-center justify-center hover:scale-105 transition-all duration-200 focus:outline-none">
+                    {user.name?.charAt(0).toUpperCase()}
+                  </button>
+
+                  <AnimatePresence>
+                    {dropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: -8 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -8 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 mt-2 w-48 bg-white rounded-2xl border border-black/5 shadow-[0_8px_32px_rgba(0,0,0,0.1)] overflow-hidden"
+                      >
+                        <div className="px-4 py-3 border-b border-black/5">
+                          <p className="text-sm font-semibold text-black truncate">
+                            {user.name}
+                          </p>
+                          <p className="text-xs text-black/45 truncate">
+                            {user.email}
+                          </p>
+                        </div>
+
+                        <Link
+                          to="/home"
+                          className="flex items-center gap-3 px-4 py-3 text-sm text-black/70 hover:bg-[#5A735A]/5 hover:text-[#5A735A] transition-colors"
+                        >
+                          <Home size={15} />
+                          Home
+                        </Link>
+
+                        <button
+                          onClick={handleLogout}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-500 hover:bg-red-50 transition-colors border-t border-black/5"
+                        >
+                          <LogOut size={15} />
+                          Logout
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/login"
+                    className="rounded-full border border-black/10 px-5 py-2 text-xs font-medium text-black/70 hover:border-black hover:text-black transition-all duration-200"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="group inline-flex items-center gap-2 rounded-full bg-[#111111] px-5 py-2 text-xs font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  >
+                    Get Started
+                    <ArrowRight
+                      size={14}
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    />
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </nav>
+        </motion.nav>
+      </div>
 
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Greeting */}
@@ -214,14 +315,12 @@ const Dashboard = () => {
           ))}
         </div>
 
-        {/* Action message */}
         {actionMsg && (
           <div className="mb-4 bg-white rounded-2xl border border-black/5 px-5 py-3 text-sm text-black/70">
             {actionMsg}
           </div>
         )}
 
-        {/* Tabs */}
         <div className="flex gap-1 mb-6 bg-white rounded-2xl border border-black/5 p-1.5 w-fit">
           {TABS.map((tab) => (
             <button
@@ -246,7 +345,6 @@ const Dashboard = () => {
         {/* ── TAB: OVERVIEW ─────────────────────────────────────────────── */}
         {activeTab === "Overview" && (
           <div className="grid lg:grid-cols-[1fr_320px] gap-5">
-            {/* Recent Reports */}
             <div className="bg-white rounded-3xl border border-black/5 overflow-hidden">
               <div className="flex items-center justify-between px-5 py-4 border-b border-black/5">
                 <h2 className="text-sm font-semibold">My Reports</h2>
@@ -283,9 +381,23 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <span
-                        className={`text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0 ${isLost ? "bg-red-100 text-red-600" : "bg-[#5A735A]/10 text-[#5A735A]"}`}
+                        className={`text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0 ${
+                          item.status === "returned"
+                            ? "bg-emerald-100 text-emerald-700"
+                            : item.status === "claimed"
+                              ? "bg-amber-100 text-amber-700"
+                              : isLost
+                                ? "bg-red-100 text-red-600"
+                                : "bg-[#5A735A]/10 text-[#5A735A]"
+                        }`}
                       >
-                        {isLost ? "Lost" : "Found"}
+                        {item.status === "returned"
+                          ? "Returned"
+                          : item.status === "claimed"
+                            ? "Claimed"
+                            : isLost
+                              ? "Lost"
+                              : "Found"}
                       </span>
                     </Link>
                   );
@@ -304,7 +416,6 @@ const Dashboard = () => {
                 )}
             </div>
 
-            {/* Right col */}
             <div className="flex flex-col gap-5">
               {/* Profile */}
               <div className="bg-white rounded-3xl border border-black/5 overflow-hidden">
@@ -323,10 +434,15 @@ const Dashboard = () => {
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     {[
-                      [dashboard.lostItems.length, "Reported"],
-                      [dashboard.foundItems.length, "Found"],
-                      [ownerData.approvedClaims.length, "Returned"],
-                    ].map(([n, l]) => (
+  [dashboard.lostItems.length, "Reported"],
+  [dashboard.foundItems.length, "Found"],
+  [
+    [...dashboard.lostItems, ...dashboard.foundItems].filter(
+      (item) => item.status === "returned"
+    ).length,
+    "Returned",
+  ],
+].map(([n, l]) => (
                       <div
                         key={l}
                         className="bg-[#FDF0ED] rounded-xl p-2.5 text-center"
@@ -636,12 +752,18 @@ const Dashboard = () => {
                           </p>
                           <StatusPill status={claim.status} />
                         </div>
-                        <p className="text-xs text-black/50 truncate mt-0.5">
-                          claiming:{" "}
-                          <span className="font-medium">
-                            {claim.item?.title || "your item"}
+                        <div className="flex items-center justify-between mt-1">
+                          <p className="text-xs text-black/50 truncate">
+                            claiming:{" "}
+                            <span className="font-medium">
+                              {claim.item?.title || "your item"}
+                            </span>
+                          </p>
+
+                          <span className="text-[11px] font-semibold text-[#5A735A] bg-[#5A735A]/10 px-2 py-0.5 rounded-full">
+                            {claim.score}/100
                           </span>
-                        </p>
+                        </div>
                         <p className="text-xs text-black/30 mt-0.5 flex items-center gap-1">
                           <Clock size={10} /> {fmtDate(claim.createdAt)}
                         </p>

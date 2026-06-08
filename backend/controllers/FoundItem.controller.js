@@ -28,7 +28,7 @@ export const getFoundItemById = async (req, res) => {
   try {
     const item = await FoundItem.findById(req.params.id).populate(
       "finder",
-      "name email"
+      "_id name email"
     );
 
     if (!item) {
