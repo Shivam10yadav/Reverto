@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import { useAuth } from "../context/authContext";  
+import { signInWithPopup } from "firebase/auth";
+
+import { auth, provider } from "../utils/firebase";
 const Signup = () => {
 
     const [name, setName] = useState("");
@@ -26,6 +29,27 @@ const handleSignup = async (e) => {
 navigate("/home");
   } catch (error) {
     console.log(error.response?.data?.message);
+  }
+};
+
+const handleGoogleSignup= async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+
+    const user = result.user;
+
+    await API.post("/auth/google", {
+      name: user.displayName,
+      email: user.email,
+      googleId: user.uid,
+      avatar: user.photoURL,
+    });
+
+    await checkAuth();
+
+    navigate("/home");
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -135,6 +159,7 @@ const { loading } = useAuth();
             </button>
 
             <button
+            onClick={handleGoogleSignup}
               type="button"
               className="w-full rounded-2xl border border-black/10 bg-white py-3 font-medium  transition-all duration-300 hover:bg-black hover:text-white cursor-pointer"
             >

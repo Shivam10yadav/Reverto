@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import { useAuth } from "../context/authContext";
+import { signInWithPopup } from "firebase/auth";
+
+import { auth, provider } from "../utils/firebase";
 
 const Login = () => {
 
@@ -26,6 +29,27 @@ await checkAuth();
 navigate("/home");
   } catch (error) {
     console.log(error.response?.data?.message);
+  }
+};
+
+const handleGoogleLogin = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+
+    const user = result.user;
+
+    await API.post("/auth/google", {
+      name: user.displayName,
+      email: user.email,
+      googleId: user.uid,
+      avatar: user.photoURL,
+    });
+
+    await checkAuth();
+
+    navigate("/home");
+  } catch (error) {
+    console.log(error);
   }
 };
   return (
@@ -126,12 +150,13 @@ navigate("/home");
               Login
             </button>
 
-            <button
-              type="button"
-              className="w-full rounded-2xl border border-black/10 bg-white py-3 font-medium  transition-all duration-300 hover:bg-black hover:text-white cursor-pointer"
-            >
-              Continue with Google
-            </button>
+           <button
+  type="button"
+  onClick={handleGoogleLogin}
+  className="w-full rounded-2xl border border-black/10 bg-white py-3 font-medium transition-all duration-300 hover:bg-black hover:text-white cursor-pointer"
+>
+  Continue with Google
+</button>
           </form>
 
           <div className="mt-8 flex items-center gap-3">
