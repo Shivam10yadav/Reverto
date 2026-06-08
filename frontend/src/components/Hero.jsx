@@ -7,7 +7,10 @@ export function Hero() {
   const { user } = useAuth();
 
   return (
-    <section id="hero" className="relative pt-36 pb-24 md:pt-48 md:pb-36 bg-[#FDF0ED]">
+    <section
+      id="hero"
+      className="relative pt-36 pb-24 md:pt-48 md:pb-36 bg-[#FDF0ED]"
+    >
       <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -19,7 +22,10 @@ export function Hero() {
           </span>
           <h1 className="font-serif text-5xl md:text-7xl text-[#111111] tracking-tight leading-[1.1] mb-8 max-w-4xl mx-auto font-medium">
             Bringing what's lost back to{" "}
-            <span className="italic text-[#5A735A] font-light">where it belongs</span>.
+            <span className="italic text-[#5A735A] font-light">
+              where it belongs
+            </span>
+            .
           </h1>
           <p className="font-sans text-gray-700 text-base md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
             A community-driven sanctuary for misplaced belongings. Securely
@@ -39,15 +45,21 @@ export function Hero() {
             className="w-full sm:w-auto bg-[#111111] text-white hover:bg-black font-medium px-8 py-4 rounded-full flex items-center justify-center gap-2 group transition-all duration-300 shadow-md"
           >
             I Lost Something
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight
+              size={16}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </Link>
 
-                    <Link
+          <Link
             to={user ? "/report-found" : "/login"}
             className="w-full sm:w-auto bg-[#111111] text-white hover:bg-black font-medium px-8 py-4 rounded-full flex items-center justify-center gap-2 group transition-all duration-300 shadow-md"
           >
             I Found Something
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight
+              size={16}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </Link>
 
           <Link

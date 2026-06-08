@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ArrowLeft, MapPin, Calendar, Gift, ShieldAlert, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  MapPin,
+  Calendar,
+  Gift,
+  ShieldAlert,
+  Loader2,
+} from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import API from "../api/axios";
 
@@ -45,12 +52,15 @@ const LostItemDetails = () => {
         <div className="h-16 w-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-4">
           <ShieldAlert size={28} />
         </div>
-        <h2 className="text-2xl font-serif italic text-black">Item profile unavailable</h2>
+        <h2 className="text-2xl font-serif italic text-black">
+          Item profile unavailable
+        </h2>
         <p className="mt-2 text-black/50 text-sm max-w-xs">
-          This post might have been removed, claimed, or the link provided is invalid.
+          This post might have been removed, claimed, or the link provided is
+          invalid.
         </p>
         <Link
-          to="/home"
+          to="/"
           className="mt-6 inline-flex items-center gap-2 rounded-full bg-black px-6 py-2.5 text-white text-sm font-medium transition hover:opacity-90"
         >
           <ArrowLeft size={16} /> Return Home
@@ -65,7 +75,7 @@ const LostItemDetails = () => {
         {/* Navigation Action */}
         <div className="flex items-center justify-between">
           <Link
-            to="/home"
+            to="/"
             className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-white px-5 py-2.5 text-sm font-medium hover:border-[#5A735A] transition shadow-sm"
           >
             <ArrowLeft size={16} />
@@ -75,12 +85,14 @@ const LostItemDetails = () => {
 
         {/* Layout Workspace Grid */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
           {/* Left Media Column */}
           <div className="lg:col-span-6 sticky top-28">
             <div className="overflow-hidden rounded-[24px] sm:rounded-[32px] bg-white border border-black/5 shadow-sm aspect-[4/3] md:aspect-square lg:h-[540px] w-full">
               <img
-                src={item.images?.[0] || "https://images.unsplash.com/photo-1595246140625-573b715d11dc?w=900"}
+                src={
+                  item.images?.[0] ||
+                  "https://images.unsplash.com/photo-1595246140625-573b715d11dc?w=900"
+                }
                 alt={item.title}
                 className="h-full w-full object-cover hover:scale-102 transition duration-500"
               />
@@ -90,9 +102,13 @@ const LostItemDetails = () => {
           {/* Right Information Details Column */}
           <div className="lg:col-span-6 space-y-6 sm:space-y-8">
             <div>
-              <span className={`inline-flex rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wider uppercase ${
-                item.type === 'Found' ? 'bg-[#5A735A]/10 text-[#5A735A]' : 'bg-red-50 text-red-600 border border-red-100'
-              }`}>
+              <span
+                className={`inline-flex rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wider uppercase ${
+                  item.type === "Found"
+                    ? "bg-[#5A735A]/10 text-[#5A735A]"
+                    : "bg-red-50 text-red-600 border border-red-100"
+                }`}
+              >
                 {item.type || "Lost"}
               </span>
 
@@ -108,8 +124,12 @@ const LostItemDetails = () => {
                   <MapPin size={16} />
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wider text-black/40 font-bold">Location</p>
-                  <p className="text-sm font-medium text-black/80 mt-0.5 line-clamp-2">{item.location}</p>
+                  <p className="text-[11px] uppercase tracking-wider text-black/40 font-bold">
+                    Location
+                  </p>
+                  <p className="text-sm font-medium text-black/80 mt-0.5 line-clamp-2">
+                    {item.location}
+                  </p>
                 </div>
               </div>
 
@@ -118,7 +138,9 @@ const LostItemDetails = () => {
                   <Gift size={16} />
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wider text-black/40 font-bold">Reward Offered</p>
+                  <p className="text-[11px] uppercase tracking-wider text-black/40 font-bold">
+                    Reward Offered
+                  </p>
                   <p className="text-sm font-semibold text-[#5A735A] mt-0.5">
                     {item.reward ? `₹${item.reward}` : "No Reward"}
                   </p>
@@ -130,9 +152,17 @@ const LostItemDetails = () => {
                   <Calendar size={16} />
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wider text-black/40 font-bold">Report Date</p>
+                  <p className="text-[11px] uppercase tracking-wider text-black/40 font-bold">
+                    Report Date
+                  </p>
                   <p className="text-sm font-medium text-black/80 mt-0.5">
-                    {item.createdAt ? new Date(item.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}
+                    {item.createdAt
+                      ? new Date(item.createdAt).toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : "Recent"}
                   </p>
                 </div>
               </div>
@@ -144,7 +174,8 @@ const LostItemDetails = () => {
                 Item Description
               </h2>
               <p className="text-black/70 text-base leading-relaxed bg-white rounded-2xl p-5 border border-black/5 shadow-sm">
-                {item.description || "No item description details were added by the author for this post."}
+                {item.description ||
+                  "No item description details were added by the author for this post."}
               </p>
             </div>
 
@@ -158,19 +189,20 @@ const LostItemDetails = () => {
                   Privacy Protected Ecosystem
                 </h3>
                 <p className="mt-1 text-xs text-black/50 leading-relaxed">
-                  Owner identification matrices are systematically hidden until the cross-match criteria validation verification process pipeline gets cleared successfully.
+                  Owner identification matrices are systematically hidden until
+                  the cross-match criteria validation verification process
+                  pipeline gets cleared successfully.
                 </p>
               </div>
             </div>
 
-            {/* Core Direct Action Button Call */}
-            <button
-              className="w-full rounded-2xl bg-[#5A735A] py-4 text-base font-medium text-white transition-all duration-300 hover:bg-[#495e49] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+            <Link
+              to={`/claim/${item._id}`}
+              className="block w-full rounded-2xl bg-[#5A735A] py-4 text-center text-base font-medium text-white transition-all duration-300 hover:bg-[#495e49] hover:shadow-lg hover:-translate-y-0.5"
             >
               Claim This Item
-            </button>
+            </Link>
           </div>
-
         </div>
       </div>
     </div>

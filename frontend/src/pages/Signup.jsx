@@ -2,59 +2,57 @@ import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../api/axios";
-import { useAuth } from "../context/authContext";  
+import { useAuth } from "../context/authContext";
 import { signInWithPopup } from "firebase/auth";
 
 import { auth, provider } from "../utils/firebase";
 const Signup = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const [name, setName] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { setUser, checkAuth } = useAuth();
 
-const navigate = useNavigate();
-const { setUser,checkAuth } = useAuth();
+  const handleSignup = async (e) => {
+    e.preventDefault();
 
-const handleSignup = async (e) => {
-  e.preventDefault();
+    try {
+      const { data } = await API.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
 
-  try {
-    const { data } = await API.post("/auth/register", {
-      name,
-      email,
-      password,
-    });
+      await checkAuth();
+      navigate("/");
+    } catch (error) {
+      console.log(error.response?.data?.message);
+    }
+  };
 
-    await checkAuth();
-navigate("/home");
-  } catch (error) {
-    console.log(error.response?.data?.message);
-  }
-};
+  const handleGoogleSignup = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
 
-const handleGoogleSignup= async () => {
-  try {
-    const result = await signInWithPopup(auth, provider);
+      const user = result.user;
 
-    const user = result.user;
+      await API.post("/auth/google", {
+        name: user.displayName,
+        email: user.email,
+        googleId: user.uid,
+        avatar: user.photoURL,
+      });
 
-    await API.post("/auth/google", {
-      name: user.displayName,
-      email: user.email,
-      googleId: user.uid,
-      avatar: user.photoURL,
-    });
+      await checkAuth();
 
-    await checkAuth();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    navigate("/home");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const { loading } = useAuth();
-
+  const { loading } = useAuth();
 
   return (
     <div className="min-h-screen bg-[#FDF0ED] flex items-center justify-center px-6 py-6 font-sans overflow-hidden relative">
@@ -108,9 +106,9 @@ const { loading } = useAuth();
               <input
                 type="text"
                 placeholder="Enter your full name"
-                  value={name}
-                 onChange={(e) => setName(e.target.value)}
- className="w-full rounded-2xl border border-black/10 bg-white px-5 py-3 outline-none transition-all duration-300 focus:border-[#5A735A] focus:shadow-[0_0_0_4px_rgba(90,115,90,0.08)]"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full rounded-2xl border border-black/10 bg-white px-5 py-3 outline-none transition-all duration-300 focus:border-[#5A735A] focus:shadow-[0_0_0_4px_rgba(90,115,90,0.08)]"
               />
             </div>
 
@@ -123,7 +121,7 @@ const { loading } = useAuth();
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-2xl border border-black/10 bg-white px-5 py-3 outline-none transition-all duration-300 focus:border-[#5A735A] focus:shadow-[0_0_0_4px_rgba(90,115,90,0.08)]"
               />
             </div>
@@ -137,7 +135,7 @@ const { loading } = useAuth();
                 type="password"
                 placeholder="Create a password"
                 value={password}
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-2xl border border-black/10 bg-white px-5 py-3 outline-none transition-all duration-300 focus:border-[#5A735A] focus:shadow-[0_0_0_4px_rgba(90,115,90,0.08)]"
               />
             </div>
@@ -159,7 +157,7 @@ const { loading } = useAuth();
             </button>
 
             <button
-            onClick={handleGoogleSignup}
+              onClick={handleGoogleSignup}
               type="button"
               className="w-full rounded-2xl border border-black/10 bg-white py-3 font-medium  transition-all duration-300 hover:bg-black hover:text-white cursor-pointer"
             >

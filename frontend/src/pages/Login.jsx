@@ -150,13 +150,13 @@ const handleGoogleLogin = async () => {
               Login
             </button>
 
-           <button
-  type="button"
-  onClick={handleGoogleLogin}
-  className="w-full rounded-2xl border border-black/10 bg-white py-3 font-medium transition-all duration-300 hover:bg-black hover:text-white cursor-pointer"
->
-  Continue with Google
-</button>
+            <button
+            onClick={handleGoogleLogin}
+              type="button"
+              className="w-full rounded-2xl border border-black/10 bg-white py-3 font-medium  transition-all duration-300 hover:bg-black hover:text-white cursor-pointer"
+            >
+              Continue with Google
+            </button>
           </form>
 
           <div className="mt-8 flex items-center gap-3">

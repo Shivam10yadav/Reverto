@@ -1,21 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Allitems from './pages/Allitems';
-import Dashboard from './pages/Dashboard';
-import ReportLost from './pages/ReportLost';
-import ReportFound from './pages/ReportFound';
-import ProtectedRoute from './components/ProtectedRoute';
-import LostItemDetails from './pages/lostItemDetail';
-import ScrollToTop from './components/ScrollToTop';
-import { useAuth } from './context/authContext';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Allitems from "./pages/Allitems";
+import Dashboard from "./pages/Dashboard";
+import ReportLost from "./pages/ReportLost";
+import ReportFound from "./pages/ReportFound";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LostItemDetails from "./pages/lostItemDetail";
+import ScrollToTop from "./components/ScrollToTop";
+import { useAuth } from "./context/authContext";
+import ClaimItem from "./pages/ClaimItem";
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
-  if (user) return <Navigate to="/home" replace />;
+  if (user) return <Navigate to="/" replace />;
   return children;
 };
 
@@ -27,39 +33,65 @@ export default function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/login" element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        } />
-        <Route path="/signup" element={
-          <PublicRoute>
-            <Signup />
-          </PublicRoute>
-        } />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
+        />
         <Route path="/home" element={<Allitems />} />
 
         {/* Protected Routes */}
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/report-lost" element={
-          <ProtectedRoute>
-            <ReportLost />
-          </ProtectedRoute>
-        } />
-        <Route path="/report-found" element={
-          <ProtectedRoute>
-            <ReportFound />
-          </ProtectedRoute>
-        } />
-        <Route path="/lost/:id" element={
-          <ProtectedRoute>
-            <LostItemDetails />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/report-lost"
+          element={
+            <ProtectedRoute>
+              <ReportLost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/report-found"
+          element={
+            <ProtectedRoute>
+              <ReportFound />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/lost/:id"
+          element={
+            <ProtectedRoute>
+              <LostItemDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/claim/:id"
+          element={
+            <ProtectedRoute>
+              <ClaimItem />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

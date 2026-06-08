@@ -84,7 +84,7 @@ const ReportLost = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      navigate("/items");
+      navigate("/home");
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong.");
     } finally {
@@ -100,7 +100,7 @@ const ReportLost = () => {
 
       {/* Back button */}
       <Link
-        to="/items"
+        to="/"
         className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/80 backdrop-blur-md text-black transition-all hover:-translate-x-1 hover:border-[#5A735A] hover:text-[#5A735A] mb-10"
       >
         <ArrowLeft size={18} />
