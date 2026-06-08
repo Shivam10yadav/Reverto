@@ -4,7 +4,7 @@ import { Search, MapPin, Shield, ArrowRight, CheckCircle, Plus, Minus } from 'lu
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { Stats } from '../components/stats';
-import { Features } from '../components/features';
+import { Features } from '../components/Features';
 import { HowItWorks } from '../components/HowItWorks';
 import { FAQ } from '../components/FAQ';
 import { Contact } from '../components/Contact';
