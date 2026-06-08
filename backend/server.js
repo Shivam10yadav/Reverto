@@ -6,13 +6,11 @@ import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes.js";
 import lostItemRoutes from "./routes/lostItem.routes.js";
-import foundItemRoutes from "./routes/foundItem.routes.js";
+import foundItemRoutes from "./routes/FoundItem.routes.js";
 import claimRoutes from "./routes/claim.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 
 dotenv.config();
-
-
 
 const app = express();
 
@@ -20,7 +18,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
