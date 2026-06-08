@@ -18,6 +18,9 @@ import LostItemDetails from "./pages/lostItemDetail";
 import ScrollToTop from "./components/ScrollToTop";
 import { useAuth } from "./context/authContext";
 import ClaimItem from "./pages/ClaimItem";
+import FoundItemDetail from "./pages/foundItemDetail";
+import NotFound from "./pages/NotFoundPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -92,6 +95,17 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/found/:id"
+          element={
+            <ProtectedRoute>
+              <FoundItemDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<NotFoundPage/>}/>
+
       </Routes>
     </Router>
   );

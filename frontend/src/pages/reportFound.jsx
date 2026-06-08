@@ -95,9 +95,8 @@ const ReportFound = () => {
       <div className="absolute top-24 left-20 h-48 w-48 rounded-full bg-[#5A735A]/10 blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-20 h-56 w-56 rounded-full bg-black/5 blur-3xl pointer-events-none" />
 
-      {/* Back button */}
       <Link
-        to="home"
+        to="/home"
         className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/80 backdrop-blur-md text-black transition-all hover:-translate-x-1 hover:border-[#5A735A] hover:text-[#5A735A] mb-10"
       >
         <ArrowLeft size={18} />
@@ -122,7 +121,6 @@ const ReportFound = () => {
           onSubmit={handleSubmit}
           className="bg-white/80 backdrop-blur-sm border border-white/60 rounded-[32px] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.07)] space-y-5"
         >
-          {/* Title */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Item Title <span className="text-red-500">*</span>
@@ -137,7 +135,6 @@ const ReportFound = () => {
             />
           </div>
 
-          {/* Category */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Category <span className="text-red-500">*</span>
@@ -157,7 +154,6 @@ const ReportFound = () => {
             </select>
           </div>
 
-          {/* Location */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Found At <span className="text-red-500">*</span>
@@ -172,7 +168,6 @@ const ReportFound = () => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Description

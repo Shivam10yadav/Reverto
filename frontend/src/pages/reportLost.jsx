@@ -94,11 +94,9 @@ const ReportLost = () => {
 
   return (
     <div className="min-h-screen bg-[#FDF0ED] font-sans px-6 py-10">
-      {/* Blobs */}
       <div className="absolute top-24 left-20 h-48 w-48 rounded-full bg-[#5A735A]/10 blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-20 h-56 w-56 rounded-full bg-black/5 blur-3xl pointer-events-none" />
 
-      {/* Back button */}
       <Link
         to="/"
         className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/80 backdrop-blur-md text-black transition-all hover:-translate-x-1 hover:border-[#5A735A] hover:text-[#5A735A] mb-10"
@@ -107,7 +105,6 @@ const ReportLost = () => {
       </Link>
 
       <div className="max-w-2xl mx-auto">
-        {/* Header */}
         <div className="mb-8">
           <span className="inline-flex rounded-full border border-[#5A735A]/20 bg-[#5A735A]/10 px-4 py-1.5 text-sm font-medium text-[#5A735A] mb-4">
             Lost Item
@@ -125,7 +122,6 @@ const ReportLost = () => {
           onSubmit={handleSubmit}
           className="bg-white/80 backdrop-blur-sm border border-white/60 rounded-[32px] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.07)] space-y-5"
         >
-          {/* Title */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Item Title <span className="text-red-500">*</span>
@@ -140,7 +136,6 @@ const ReportLost = () => {
             />
           </div>
 
-          {/* Category */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Category <span className="text-red-500">*</span>
@@ -160,7 +155,6 @@ const ReportLost = () => {
             </select>
           </div>
 
-          {/* Location */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Last Seen Location <span className="text-red-500">*</span>
@@ -175,7 +169,6 @@ const ReportLost = () => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Description
@@ -190,7 +183,6 @@ const ReportLost = () => {
             />
           </div>
 
-          {/* Reward */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Reward (optional)
@@ -205,13 +197,11 @@ const ReportLost = () => {
             />
           </div>
 
-          {/* Image Upload */}
           <div>
             <label className="block text-sm font-medium text-black/70 mb-2">
               Images (up to 4)
             </label>
 
-            {/* Previews */}
             {previews.length > 0 && (
               <div className="grid grid-cols-4 gap-3 mb-3">
                 {previews.map((src, i) => (
@@ -233,7 +223,6 @@ const ReportLost = () => {
               </div>
             )}
 
-            {/* Upload box */}
             {images.length < 4 && (
               <label className="flex flex-col items-center justify-center gap-2 w-full border-2 border-dashed border-black/15 rounded-2xl py-8 cursor-pointer hover:border-[#5A735A] transition-colors bg-white/50">
                 <Upload size={22} className="text-black/30" />
@@ -254,14 +243,12 @@ const ReportLost = () => {
             )}
           </div>
 
-          {/* Error */}
           {error && (
             <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">
               {error}
             </p>
           )}
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
