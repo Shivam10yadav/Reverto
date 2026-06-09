@@ -52,7 +52,7 @@ The platform is engineered using modern technologies designed for speed, securit
 
 ```text
 reverto/
-├── client/                      # Frontend Application
+├── frontend/                      # Frontend Application
 │   ├── src/
 │   │   ├── components/         # Reusable UI elements (Hero, Navbar, Cards)
 │   │   ├── context/            # Auth and Global State Management
@@ -60,7 +60,7 @@ reverto/
 │   │   ├── App.jsx             # Core Layout Routing and Framework Setup
 │   │   └── main.jsx            # DOM Mounting and Client Bootstrap
 │
-├── server/                      # Backend API Application
+├── backend/                      # Backend API Application
 │   ├── src/
 │   │   ├── config/             # Database, Storage, and Environment Settings
 │   │   ├── models/             # MongoDB Document Schemas (User, Item, Message)
