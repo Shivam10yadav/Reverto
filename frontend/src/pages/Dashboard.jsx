@@ -664,11 +664,11 @@ const Dashboard = () => {
                           <Clock size={10} />Submitted {fmtDate(claim.createdAt)}
                         </p>
                         {claim.status === "pending" && (
-                          <p className="mt-2 text-xs text-amber-600 bg-amber-50 rounded-lg px-3 py-1.5 w-fit">⏳ Waiting for review</p>
+                          <p className="mt-2 text-xs text-amber-600 bg-amber-50 rounded-lg px-3 py-1.5 w-fit"> Waiting for review</p>
                         )}
                         {claim.status === "approved" && (
                           <div className="mt-2 flex items-center gap-2 flex-wrap">
-                            <p className="text-xs text-[#5A735A] bg-[#5A735A]/8 rounded-lg px-3 py-1.5">✅ Approved — chat to arrange return</p>
+                            <p className="text-xs text-[#5A735A] bg-[#5A735A]/8 rounded-lg px-3 py-1.5"> Approved — chat to arrange return</p>
                             <button
                               onClick={() => setActiveChatClaim(activeChatClaim?._id === claim._id ? null : claim)}
                               className="flex items-center gap-1.5 text-xs font-medium bg-[#5A735A] text-white rounded-lg px-3 py-1.5 hover:scale-105 transition-all"
@@ -679,7 +679,7 @@ const Dashboard = () => {
                           </div>
                         )}
                         {claim.status === "rejected" && (
-                          <p className="mt-2 text-xs text-red-500 bg-red-50 rounded-lg px-3 py-1.5 w-fit">❌ Rejected — your answers didn't match</p>
+                          <p className="mt-2 text-xs text-red-500 bg-red-50 rounded-lg px-3 py-1.5 w-fit">Rejected — your answers didn't match</p>
                         )}
                       </div>
                     </div>
