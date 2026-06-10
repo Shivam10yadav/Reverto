@@ -397,7 +397,7 @@ const Dashboard = () => {
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-[#111111] flex items-center justify-center font-bold text-white text-sm">F</div>
-              <span className="italic font-serif text-xl tracking-wide text-[#111111] font-semibold">FindBack</span>
+              <span className="italic font-serif text-xl tracking-wide text-[#111111] font-semibold">Reverto</span>
             </Link>
             <div className="flex items-center gap-3">
               <Link

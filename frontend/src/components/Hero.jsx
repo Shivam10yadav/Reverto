@@ -68,6 +68,12 @@ export function Hero() {
           >
             View All Items
           </Link>
+           <Link
+            to="/success-stories"
+            className="w-full sm:w-auto bg-transparent text-[#111111] border border-black/20 hover:bg-black/5 font-medium px-8 py-4 rounded-full transition-colors duration-300"
+          >
+            View Success Stories
+          </Link>
         </motion.div>
       </div>
     </section>

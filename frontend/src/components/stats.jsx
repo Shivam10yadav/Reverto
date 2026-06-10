@@ -36,7 +36,6 @@ export function Stats() {
     <section className="bg-[#FFFFFF] py-24 md:py-32 border-b border-black/[0.04]">
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* Optional Intro Section to ground the big numbers */}
         <div className="max-w-2xl mb-16 md:mb-24">
           <span className="text-xs uppercase tracking-widest text-[#5A735A] font-bold block mb-3">
             Ecosystem Metrics
@@ -46,7 +45,6 @@ export function Stats() {
           </h2>
         </div>
 
-        {/* Rebuilt Layout: From a tight strip to deep bento cards */}
         <motion.div 
           variants={staggerContainer}
           initial="initial"
@@ -61,7 +59,6 @@ export function Stats() {
               className="bg-[#FDF0ED]/40 border border-black/[0.02] rounded-[2rem] p-8 md:p-10 flex flex-col justify-between hover:shadow-xl hover:shadow-[#5A735A]/5 transition-all duration-300"
             >
               <div>
-                {/* Massive Typography Treatment */}
                 <h3 className="font-serif text-6xl md:text-7xl text-[#111111] font-bold tracking-tight mb-4">
                   {stat.number}
                 </h3>

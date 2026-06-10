@@ -22,6 +22,7 @@ import FoundItemDetail from "./pages/foundItemDetail";
 import NotFound from "./pages/NotFoundPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import VerificationPage from "./pages/VerificationPage";
+import { SuccessStories } from "./pages/SuccessStories";
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -37,6 +38,7 @@ export default function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/success-stories" element={<SuccessStories />} />
         <Route
           path="/login"
           element={

@@ -39,10 +39,10 @@ export function Navbar() {
             </span>
           </div>
 
-          {/* Nav Links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
             <a href="#hero" className="hover:text-black transition-colors duration-200">Hero</a>
             <Link to="/about" className="hover:text-black transition-colors duration-200">About</Link>
+            <Link to="/success-stories" className="hover:text-black transition-colors duration-200">Success</Link>
             <a href="#features" className="hover:text-black transition-colors duration-200">Features</a>
             <a href="#howitworks" className="hover:text-black transition-colors duration-200">How It Works</a>
             <a href="#faq" className="hover:text-black transition-colors duration-200">FAQ</a>
@@ -52,7 +52,6 @@ export function Navbar() {
           {/* Right Side */}
           <div className="flex items-center gap-2">
             {user ? (
-              // Avatar with hover dropdown
               <div
                 className="relative"
                 onMouseEnter={() => setDropdownOpen(true)}
@@ -77,7 +76,6 @@ export function Navbar() {
                         <p className="text-xs text-black/45 truncate">{user.email}</p>
                       </div>
 
-                      {/* Dashboard */}
                       <Link
                         to="/dashboard"
                         className="flex items-center gap-3 px-4 py-3 text-sm text-black/70 hover:bg-[#5A735A]/5 hover:text-[#5A735A] transition-colors"
@@ -86,20 +84,18 @@ export function Navbar() {
                         Dashboard
                       </Link>
 
-                      {/* Logout */}
                       <button
                         onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-500 hover:bg-red-50 transition-colors"
                       >
                         <LogOut size={15} />
-                        Logout
+                        Logout 
                       </button>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             ) : (
-              // Login + Get Started buttons
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"

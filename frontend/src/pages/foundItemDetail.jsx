@@ -107,7 +107,6 @@ const FoundItemDetail = () => {
           {/* Info */}
           <div className="lg:col-span-6 space-y-6 sm:space-y-8">
             <div>
-              {/* Found badge — always green */}
               <span className="inline-flex rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wider uppercase bg-[#5A735A]/10 text-[#5A735A] border border-[#5A735A]/20">
                 Found
               </span>
@@ -117,7 +116,6 @@ const FoundItemDetail = () => {
               </h1>
             </div>
 
-            {/* Metadata */}
             <div className="bg-white/60 rounded-2xl border border-black/5 p-5 grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-sm backdrop-blur-sm">
               <div className="flex items-start gap-3">
                 <div className="p-2 rounded-lg bg-[#5A735A]/10 text-[#5A735A] shrink-0">
@@ -154,7 +152,6 @@ const FoundItemDetail = () => {
               </div>
             </div>
 
-            {/* Category pill if present */}
             {item.category && (
               <div className="flex items-center gap-2">
                 <span className="text-xs font-medium text-black/50 uppercase tracking-wide">Category</span>
@@ -164,7 +161,6 @@ const FoundItemDetail = () => {
               </div>
             )}
 
-            {/* Description */}
             <div className="space-y-3">
               <h2 className="text-lg font-semibold tracking-tight">
                 Item Description
@@ -175,7 +171,6 @@ const FoundItemDetail = () => {
               </p>
             </div>
 
-            {/* Privacy notice */}
             <div className="rounded-2xl bg-white border border-black/5 p-5 shadow-sm flex gap-4 items-start">
               <div className="h-8 w-8 rounded-full bg-[#5A735A]/10 text-[#5A735A] flex items-center justify-center shrink-0 mt-0.5">
                 <ShieldAlert size={16} />
@@ -192,7 +187,6 @@ const FoundItemDetail = () => {
               </div>
             </div>
 
-            {/* CTA */}
           {isOwner ? (
   <div className="block w-full rounded-2xl bg-gray-200 py-4 text-center text-base font-medium text-gray-600 cursor-not-allowed">
     This is your report

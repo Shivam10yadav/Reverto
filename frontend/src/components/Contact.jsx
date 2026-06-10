@@ -7,10 +7,8 @@ export function Contact() {
     <section id="contact" className="py-24 md:py-32 bg-[#FFFFFF] border-t border-black/[0.04]">
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* Main Floating Card Container */}
         <div className="bg-[#FDF0ED]/50 border border-black/[0.02] rounded-[2.5rem] p-8 md:p-16 lg:p-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* Left Column: Context, Features & Social Hub (Spans 5 Columns) */}
           <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
             <div className="space-y-4">
               <span className="text-xs uppercase tracking-widest text-[#5A735A] font-bold block">
@@ -24,15 +22,12 @@ export function Contact() {
               </p>
             </div>
             
-            {/* Value Props List */}
           
 
-            {/* Direct Communication Channels (Mail + Social Link Hub) */}
             <div className="space-y-3 pt-4 border-t border-black/[0.04]">
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#111111]">Direct Channels</h4>
               <div className="flex flex-wrap items-center gap-3">
                 
-                {/* Direct Mail Anchor */}
                 <a 
                   href="mailto:partner@reverto.com" 
                   className="flex items-center gap-2 h-10 px-4 rounded-xl border border-black/[0.06] bg-white text-xs font-medium text-gray-700 hover:text-black hover:border-black/20 transition-all duration-200 shadow-sm"
@@ -41,7 +36,6 @@ export function Contact() {
                   <span>partner@reverto.com</span>
                 </a>
 
-                {/* Twitter / X */}
                 <a 
                   href="https://x.com" 
                   target="_blank" 
@@ -52,7 +46,6 @@ export function Contact() {
                   <RiTwitterXFill size={16} />
                 </a>
                 
-                {/* GitHub */}
                 <a 
                   href="https://github.com" 
                   target="_blank" 
@@ -63,7 +56,6 @@ export function Contact() {
                   <RiGithubFill size={18} />
                 </a>
 
-                {/* LinkedIn */}
                 <a 
                   href="https://linkedin.com" 
                   target="_blank" 
@@ -78,7 +70,6 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Right Column: Clean, Premium Form (Spans 7 Columns) */}
           <form className="lg:col-span-7 w-full bg-white border border-black/[0.03] rounded-3xl p-6 md:p-10 shadow-[0_20px_50px_rgba(90,115,90,0.03)] space-y-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="space-y-1.5">
