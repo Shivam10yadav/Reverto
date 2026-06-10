@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
-import Message from "../models/message.model.js";
+import Message from "../models/Message.model.js";
 import Claim from "../models/claim.model.js";
 
 let io;
